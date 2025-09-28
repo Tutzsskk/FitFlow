@@ -99,6 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django 5.x usa CSRF_TRUSTED_ORIGINS como lista
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "https://localhost:8000",
+    "https://studious-telegram-x5vgp6v6r4gphgvg-8000.app.github.dev/users/register",
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
