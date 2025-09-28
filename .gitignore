@@ -1,0 +1,28 @@
+# Ambiente virtual
+venv/
+.env/
+*.env
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos do banco de dados local
+db.sqlite3
+
+# Arquivos de migração (opcional manter só em dev)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos do editor/IDE
+.vscode/
+.idea/
+*.swp
