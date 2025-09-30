@@ -1,7 +1,181 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Entrar</button>
+<!-- <h2>Login</h2>
+<form id="loginForm">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="password" placeholder="Senha" required>
+    <button type="submit">Entrar</button>
 </form>
-<a href="{% url 'register' %}">Não tem conta? Cadastre-se</a>
+
+<p id="error" style="color:red;"></p>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    try {
+        const res = await fetch("/users/api/token/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if(res.ok) {
+            // Salva os tokens no localStorage
+            localStorage.setItem("access_token", data.access);
+            localStorage.setItem("refresh_token", data.refresh);
+
+            // Redireciona para home ou painel
+            window.location.href = "/"; 
+        } else {
+            document.getElementById("error").innerText = data.detail || "Login inválido";
+        }
+    } catch(err) {
+        document.getElementById("error").innerText = "Erro de conexão";
+    }
+});
+</script>
+<a href="{% url 'register' %}">Não tem conta? Cadastre-se</a> -->
+
+
+{% comment %} Seu template de login do Django, ex: contas/login.html {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FitFlow</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif; background-color: #ffffff; margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #333;
+        }
+        .container {
+            width: 100%; max-width: 375px; padding: 2.5rem 1.5rem; box-sizing: border-box;
+            display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .app-logo { text-align: center; margin-bottom: 2.5rem; }
+        .app-logo h1 { font-size: 1.8rem; font-weight: 700; color: #333; margin: 0; }
+        .greeting-section { text-align: left; margin-bottom: 0.5rem; }
+        .greeting-section h2 { font-size: 1.35rem; font-weight: 600; margin: 0; color: #333; }
+        .greeting-section p { font-size: 0.95rem; color: #666; margin-top: 0.4rem; line-height: 1.4; }
+        .form-group { margin-bottom: 1rem; }
+        .input-field {
+            width: 100%; padding: 1rem 1.25rem; border: 1px solid #e0e0e0; border-radius: 10px;
+            font-size: 1rem; color: #333; box-sizing: border-box; transition: border-color 0.2s;
+        }
+        .input-field::placeholder { color: #bdbdbd; }
+        .input-field:focus { outline: none; border-color: #333; }
+        .button-primary {
+            width: 100%; padding: 1.1rem 1.25rem; border: none; border-radius: 10px; background-color: #000000;
+            color: #ffffff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;
+            text-align: center; text-decoration: none; display: block;
+        }
+        .button-primary:hover { background-color: #333333; }
+        
+        /* --- ESTILOS ADICIONADOS --- */
+        .error-message {
+            color: #d93025; /* Vermelho para erros */
+            font-size: 0.9rem;
+            text-align: center;
+            margin: -0.5rem 0 1rem 0; /* Espaçamento para a mensagem de erro */
+            height: 1em; /* Garante que o layout não "pule" quando a mensagem aparece */
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .signup-link a {
+            color: #333;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-logo">
+            <h1>FitFlow</h1>
+        </div>
+
+        <div class="greeting-section">
+            <h2>Bem-vindo(a)!</h2>
+            <p>Entre com seu e-mail e senha para acessar sua conta.</p>
+        </div>
+
+        <form id="loginForm" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="email" name="email" class="input-field" placeholder="email@dominio.com" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="input-field" placeholder="Senha" required>
+            </div>
+            
+            <p id="error" class="error-message"></p>
+            
+            <button type="submit" class="button-primary">Entrar</button>
+        </form>
+
+        <p class="signup-link">
+            <a href="{% url 'register' %}">Não tem conta? Cadastre-se</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault(); // Impede o recarregamento da página
+            
+            const form = e.target;
+            const email = form.email.value;
+            const password = form.password.value;
+            const errorElement = document.getElementById("error");
+
+            // Limpa erros anteriores
+            errorElement.innerText = "";
+
+            try {
+                // Obtém o CSRF token do formulário
+                const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                const res = await fetch("/users/api/token/", { // Sua URL de API para obter o token
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken // Envia o token CSRF no header
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Salva os tokens no localStorage
+                    localStorage.setItem("access_token", data.access);
+                    localStorage.setItem("refresh_token", data.refresh);
+
+                    // Redireciona para home ou painel
+                    window.location.href = "/"; // Mude para a URL desejada após o login
+                } else {
+                    // Exibe a mensagem de erro retornada pela API
+                    errorElement.innerText = data.detail || "E-mail ou senha inválidos.";
+                }
+            } catch (err) {
+                // Exibe uma mensagem de erro genérica em caso de falha de conexão
+                errorElement.innerText = "Não foi possível conectar ao servidor. Tente novamente.";
+                console.error("Erro de conexão:", err);
+            }
+        });
+    </script>
+</body>
+</html>

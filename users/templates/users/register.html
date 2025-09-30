@@ -1,52 +1,83 @@
-<!-- <h2>Cadastro</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Registrar</button>
-</form>
-<a href="{% url 'login' %}">Já tem conta? Faça login</a> -->
+{% load static %}
 
-<h2>Cadastro</h2>
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form.non_field_errors }}
-  <p>
-    {{ form.email.label_tag }}<br>
-    {{ form.email }}
-    {{ form.email.errors }}
-  </p>
-  <p>
-    {{ form.username.label_tag }}<br>
-    {{ form.username }}
-    {{ form.username.errors }}
-  </p>
-  <p>
-    {{ form.height.label_tag }}<br>
-    {{ form.height }} m
-    {{ form.height.errors }}
-  </p>
-  <p>
-    {{ form.weight.label_tag }}<br>
-    {{ form.weight }} kg
-    {{ form.weight.errors }}
-  </p>
-  <p>
-    {{ form.gender.label_tag }}<br>
-    {{ form.gender }}
-    {{ form.gender.errors }}
-  </p>
-  <p>
-    {{ form.password1.label_tag }}<br>
-    {{ form.password1 }}
-    {{ form.password1.errors }}
-  </p>
-  <p>
-    {{ form.password2.label_tag }}<br>
-    {{ form.password2 }}
-    {{ form.password2.errors }}
-  </p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
 
-  <button type="submit">Registrar</button>
-</form>
-<a href="{% url 'login' %}">Já tem conta? Faça login</a>
+    <link rel="stylesheet" href="{% static 'users/css/register.css' %}">
 
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"> -->
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <h1>CADASTRO</h1>
+    </header>
+
+    <main>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="input-group-with-label">
+                <label for="{{ form.username.id_for_label }}">Nome de usuário</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="input-group">
+                {{ form.date_of_birth }}
+                {{ form.date_of_birth.errors }}
+            </div>
+            
+            <div class="gender-group">
+                <label class="gender-label">Gênero</label>
+                <div class="gender-options">
+                    {{ form.gender }}
+                    {{ form.gender.errors }}
+                </div>
+            </div>
+
+            <div class="input-group-with-label">
+                <label for="{{ form.weight.id_for_label }}">Insira seu peso</label>
+                {{ form.weight }}
+                {{ form.weight.errors }}
+            </div>
+
+            <div class="input-group-with-label">
+                <label for="{{ form.height.id_for_label }}">Insira sua altura</label>
+                {{ form.height }}
+                {{ form.height.errors }}
+            </div>
+
+            <div class="input-group-with-label">
+                <label for="{{ form.email.id_for_label }}">Insira seu email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="input-group-with-label">
+                <label for="{{ form.password1.id_for_label }}">Insira sua senha</label>
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+
+            <div class="input-group-with-label">
+                <label for="{{ form.password2.id_for_label }}">Confirme sua senha</label>
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
+            <button type="submit">Registrar</button>
+        </form>
+        
+        <a class="login-link" href="{% url 'login' %}">Já tem conta? Faça login</a>
+    </main>
+</div>
