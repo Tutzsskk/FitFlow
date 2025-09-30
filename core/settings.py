@@ -111,7 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "https://localhost:8000",
+    "https://localhost:8001",
     "https://studious-telegram-x5vgp6v6r4gphgvg-8000.app.github.dev/users/register",
+    "https://studious-telegram-x5vgp6v6r4gphgvg-8001.app.github.dev/users/register",
 ]
 
 
@@ -131,6 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

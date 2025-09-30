@@ -1,0 +1,155 @@
+/* Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 50px;
+}
+
+/* Container Principal */
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Grupos de Input */
+.input-group,
+.input-group-with-label {
+    margin-bottom: 25px;
+}
+
+.input-group input,
+.input-group-with-label input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.input-group input::placeholder,
+.input-group-with-label input::placeholder {
+    color: #999;
+}
+
+.input-group-with-label label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Grupo de Gênero */
+.gender-group {
+    margin-bottom: 30px;
+}
+
+.gender-group .gender-label {
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.gender-options {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+}
+
+.radio-option input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    margin-right: 8px;
+    position: relative;
+}
+
+.radio-option input[type="radio"]:checked {
+    background-color: #fff;
+    border: 1px solid #333;
+}
+
+.radio-option input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio-option label {
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 15px; /* Espaçamento interno para ficar maior */
+    background-color: #2c2c2c; /* Cor de fundo escura */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    border-radius: 8px; /* Cantos arredondados, igual aos inputs */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    text-transform: uppercase; /* Deixa o texto em maiúsculas (REGISTRAR) */
+    cursor: pointer; /* Mostra a "mãozinha" ao passar o mouse */
+    margin-top: 20px; /* Espaço acima do botão */
+    transition: background-color 0.2s; /* Animação suave na cor de fundo */
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+button[type="submit"]:hover {
+    background-color: #555555; /* Cor de fundo um pouco mais clara */
+}
+
+/* Estilo do link "Já tem conta?" */
+.login-link {
+    display: block; /* Permite centralizar e adicionar margem */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Espaço entre o botão e o link */
+    color: #555; /* Cor do texto do link */
+    text-decoration: none; /* Remove o sublinhado padrão */
+    font-size: 15px;
+}
+
+.login-link:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
