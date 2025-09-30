@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+from .models import CustomUser
 
 def register(request):
     if request.method == "POST":
@@ -30,3 +34,18 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("login")
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = 'email'  # Para usar email como login
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        # Você pode adicionar informações extras no token
+        data.update({
+            "email": self.user.email,
+            "username": self.user.username,
+        })
+        return data
+    
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
