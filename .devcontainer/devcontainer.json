@@ -1,0 +1,12 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "postCreateCommand": ".devcontainer/setup.sh",
+  "forwardPorts": [3000, 8080],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter"
+      ]
+    }
+  }
+}
