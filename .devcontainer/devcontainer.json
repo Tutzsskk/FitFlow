@@ -1,6 +1,8 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "postCreateCommand": ".devcontainer/setup.sh",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
+  },
   "forwardPorts": [3000, 8080],
   "customizations": {
     "vscode": {
